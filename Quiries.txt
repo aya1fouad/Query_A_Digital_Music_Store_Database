@@ -1,0 +1,73 @@
+/*Query1 - query used for first insight*/
+
+SELECT g.Name AS "gener name",
+       SUM(i.unitprice * i.quantity) AS "number of sales"
+FROM Genre g
+JOIN Track t ON g.GenreId = t.GenreId
+JOIN InvoiceLine i ON i.trackid = t.trackid
+GROUP BY "gener name"
+ORDER BY "number of sales" DESC
+LIMIT 5;
+-----------------------------------------------
+/*Query2 - query used for second insight*/
+
+SELECT al.title AS "album name",
+       SUM(i.unitprice * i.quantity) AS "number of sales"
+FROM Album al
+JOIN Track t ON al.albumid = t.albumid
+JOIN InvoiceLine i ON i.trackid = t.trackid
+GROUP BY "album name"
+ORDER BY "number of sales" DESC
+LIMIT 5;
+-----------------------------------------------
+/*Query3 - query used for third insight*/
+
+SELECT t.Name AS "track name",
+       SUM(i.unitprice * i.quantity) AS "number of sales"
+FROM Track t
+JOIN InvoiceLine i ON t.trackid = i.trackid
+GROUP BY "track name"
+ORDER BY "number of sales" DESC
+LIMIT 5;
+-----------------------------------------------
+/*Query4 - query used for forth insight*/
+
+SELECT mt.Name AS "media type",
+       count(t.MediaTypeId) AS "number of tracks"
+FROM Track t
+JOIN MediaType mt ON t.MediaTypeId= mt.MediaTypeId
+GROUP BY "media type"
+ORDER BY "number of tracks" DESC
+LIMIT 5;
+-----------------------------------------------
+/*Query5- query used for fifth insight*/
+
+SELECT ar.Name AS "artist name",
+       count(al.ArtistId) AS "number of albums"
+FROM Album al
+JOIN Artist ar ON al.ArtistId= ar.ArtistId
+GROUP BY "artist name"
+ORDER BY "number of albums" DESC
+LIMIT 5;
+-----------------------------------------------
+/*Query6- query used for sixth insight*/
+
+SELECT (e.FirstName ||" "||e.LastName) AS "employee name",
+       count(c.CustomerId) AS "number of customers"
+FROM Employee e
+JOIN Customer c ON e.EmployeeId=c.SupportRepId
+GROUP BY "employee name"
+ORDER BY "number of customers" DESC
+LIMIT 5;
+-----------------------------------------------
+/*Query7- query used for seventh insight*/
+
+SELECT (c.FirstName ||" "||c.LastName) AS "customer name",
+       sum(l.UnitPrice * l.Quantity) AS "total_invoices"
+FROM Customer c
+JOIN Invoice i ON c.CustomerId=i.CustomerId
+JOIN InvoiceLine l ON l.InvoiceId=i.InvoiceId
+GROUP BY "customer name"
+ORDER BY "total_invoices" DESC
+LIMIT 5;
+-----------------------------------------------
